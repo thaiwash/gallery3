@@ -11,7 +11,7 @@ function createWasdImage(loader) {
     const geometry = new THREE.PlaneGeometry( 18, 12 );
     const material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
     const plane = new THREE.Mesh( geometry, materialPic );
-    plane.position.z = 350
+    plane.position.z = 100
     plane.position.x = -50
     plane.position.y = 25
     plane.name = "WASD"
@@ -27,10 +27,11 @@ function createForwardsImage(loader) {
       const geometry = new THREE.PlaneGeometry( 20, 20 );
       const material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
       const plane = new THREE.Mesh( geometry, materialPic );
-      plane.position.z = 350
+      plane.position.z = 100
       plane.position.x = 40
       plane.position.y = 0
       plane.name = "ForwardsImage"
+      window.ForwadsButtonPlane = plane
       return plane
 }
 
@@ -43,7 +44,7 @@ function createBackwardsImage(loader) {
         const geometry = new THREE.PlaneGeometry( 20, 20 );
         const material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
         const plane = new THREE.Mesh( geometry, materialPic );
-        plane.position.z = 350
+        plane.position.z = 100
         plane.position.x = -40
         plane.position.y = 0
         plane.name = "BackwardsImage"
@@ -51,7 +52,7 @@ function createBackwardsImage(loader) {
 }
 
 
-export function loadUIButtons(camera) {
+export function loadUIButtons(scene) {
   console.log("button creation")
 
 
@@ -59,9 +60,9 @@ export function loadUIButtons(camera) {
   // Create a texture loader so we can load our image file
   var loader = new THREE.TextureLoader();
 
-  camera.add( createWasdImage(loader) );
-  //scene.add( createForwardsImage(loader) );
-  //scene.add( createBackwardsImage(loader) );
+  scene.add( createWasdImage(loader) );
+  scene.add( createForwardsImage(loader) );
+  scene.add( createBackwardsImage(loader) );
 
 
 }

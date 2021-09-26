@@ -34,7 +34,7 @@ var paintings = [
   "153654716_3730400087078630_8376481742171075422_n.jpg"
 ]
 
-var positions = [
+window.positions = [
   [0, 0, 52],
   [100, 0, 52],
   [200, 0, 52],
@@ -64,7 +64,7 @@ var positions = [
   [-125, 0, 52]
 ]
 
-var rotations = [
+window.rotations = [
   0,0,0,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,0,0,0
 ]
 
@@ -187,6 +187,7 @@ export function spawnPaintings(scene) {
   scene.add(createPaintingImage(25, scene))
   scene.add(createPaintingImage(26, scene))
 }
+
 /*
 var loader = new THREE.TextureLoader();
 var texture = loader.load( "./img.png", function ( tex ) {

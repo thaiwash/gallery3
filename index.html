@@ -32,7 +32,7 @@
 
 
 				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
-				camera.position.z = 400;
+				camera.position.z = 150;
 
 
 				scene = new THREE.Scene();
@@ -57,7 +57,7 @@
 					mouseControl()
 			    keyboardControl()
 			    spawnWorld(scene)
-			    loadUIButtons(camera)
+			    loadUIButtons(scene)
 			    spawnPaintings(scene)
 
 				    // Add a point light with #fff color, .7 intensity, and 0 distance
@@ -75,6 +75,7 @@
 
 			}
 
+
 			function onWindowResize() {
 
 				camera.aspect = window.innerWidth / window.innerHeight;
@@ -84,11 +85,36 @@
 
 			}
 
+			function lerpCameraUpdate() {
+				var now = (new Date()).getTime()
+				var elapsed = now - camera.lerpStartTime
+
+				if (camera.isLerping) {
+
+					var lerpWith = elapsed/2000
+
+
+					if (lerpWith > 1 ) {
+						camera.isLerping = false
+						lerpWith = 1
+					}
+
+					var lerpingVector = new THREE.Vector3()
+
+					lerpingVector.lerpVectors(camera.lerpStartPosition, camera.lerpTo, lerpWith)
+					camera.position.copy(lerpingVector)
+
+					lerpingVector.lerpVectors(ForwadsButtonPlane.lerpStartPosition, ForwadsButtonPlane.lerpTo, lerpWith)
+					ForwadsButtonPlane.position.copy(lerpingVector)
+				}
+			}
+
 			function animate() {
 
 				requestAnimationFrame( animate );
 
 				//controls.update();
+				lerpCameraUpdate()
 
 				renderer.render( scene, camera );
 
