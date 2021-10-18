@@ -24,17 +24,11 @@ function mouseDown(event) {
             hideUI()
             window.wasdEnabled = true
           }
-      		if (intersects[ i ].object.name == "ForwardsImage") {
-            console.log("ForwardsImage clicked")
-            hideWasd()
-            lerp(1)
-            //window.wasdEnabled = true
-          }
-      		if (intersects[ i ].object.name == "BackwardsImage") {
-            console.log("BackwawrdsImage clicked")
-            hideWasd()
-            lerp(-1)
-            //window.wasdEnabled = true
+
+          for (var i2 = 0; i2 < painting.length; i2 ++) {
+            if (intersects[ i ].object.name == painting[i2].img) {
+              console.log("painting "+painting[i2].img+" clicked")
+            }
           }
 
     	}
@@ -67,74 +61,6 @@ function hideUI() {
   }
 }
 
-window.lookingAtPicture = 0
-
-function lerp(direction) {
-  console.log("move camera")
-  console.log(positions)
-  console.log(camera)
-
-  lookingAtPicture = lookingAtPicture + direction
-  if (lookingAtPicture == -1) {
-    lookingAtPicture = positions.length-1
-  }
-  if (lookingAtPicture == positions.length) {
-    lookingAtPicture = 0
-  }
-
-  camera.lerpStartTime = (new Date()).getTime()
-  camera.lerpStartPosition = camera.position
-  var lerpTo = new THREE.Vector3(
-    positions[lookingAtPicture][0],
-    positions[lookingAtPicture][1],
-    positions[lookingAtPicture][2])
-
-  camera.lerpTo = lerpTo
-  if (rotations[lookingAtPicture] == 0) {
-    camera.lerpTo.z += 100
-  } else if (rotations[lookingAtPicture] == 1) {
-
-
-
-    camera.lerpTo.x -= 100
-
-    if (camera.lastRotation != rotations[lookingAtPicture]) {
-      camera.rotateY(-Math.PI/2)
-      camera.lastRotation = rotations[lookingAtPicture]
-    }
-  }
-
-
-  camera.isLerping = true
-
-}
-/*
-
-function updateCameraPosition() {
-	var now = (new Date()).getTime()
-	var elapsed = now - lerpStartTime
-
-	if (isLerping) {
-		//console.log(elapsed)
-		//console.log(lerpingTime)
-		//console.log(elapsed/lerpingTime)
-		var lerpWith = elapsed/lerpingTime
-
-
-		if (lerpWith > 1 ) {
-			isLerping = false
-			lerpWith = 1
-		}
-
-		var lerpingVector = new THREE.Vector3()
-
-		lerpingVector.lerpVectors(cameraStartPosition, lerpTo, lerpWith)
-		camera.position.copy(lerpingVector)
-		//camera.lookAt(paintings[lookingAtPicture])
-	}
-}
-*/
-
 function mouseUp() {
   window.mouseDown = false
 }
@@ -143,7 +69,7 @@ function mouseUp() {
 var lastMouseCrd = [0,0]
 
 function mouseMove(event) {
-  if (window.wasdEnabled && window.mouseDown) {
+  if (/*window.wasdEnabled && */window.mouseDown) {
     // console.log(lastMouseCrd[0] - event.clientX)
     var changeX = lastMouseCrd[0] - event.clientX
     var changeY = lastMouseCrd[1] - event.clientY

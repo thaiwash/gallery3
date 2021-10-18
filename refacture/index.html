@@ -11,11 +11,12 @@
 		<script type="module">
 
 		  import * as THREE from './lib/three.module.js';
-		  import {loadUIButtons} from './js/uibuttons.js';
+		  import {spawnWorld} from './js/world.js';
 		  import {mouseControl} from './js/mousecontrol.js';
 		  import {keyboardControl} from './js/keyboardcontrol.js';
-		  import {spawnWorld} from './js/world.js';
+		  //import {loadUIButtons} from './js/uibuttons.js';*/
 		  import {spawnPaintings} from './js/paintings.js';
+		  import {updateCameraControl} from './js/camercontrol.js';
 
 			window.THREE = THREE
 
@@ -58,7 +59,7 @@
 					mouseControl()
 			    keyboardControl()
 			    spawnWorld(scene)
-			    loadUIButtons(scene)
+			    //loadUIButtons(scene)
 			    spawnPaintings(scene)
 
 				    // Add a point light with #fff color, .7 intensity, and 0 distance
@@ -86,61 +87,12 @@
 
 			}
 
-			function lerpCameraUpdate() {
-				var now = (new Date()).getTime()
-				var elapsed = now - camera.lerpStartTime
-
-				if (camera.isLerping) {
-
-					var lerpWith = elapsed/2000
-
-
-					if (lerpWith > 1 ) {
-						camera.isLerping = false
-						camera.lepringRotation = false
-						lerpWith = 1
-
-					}
-
-					var lerpingVector = new THREE.Vector3()
-
-					lerpingVector.lerpVectors(camera.lerpStartPosition, camera.lerpTo, lerpWith)
-					camera.position.copy(lerpingVector)
-
-
-					ForwadsButtonPlane.position.copy(camera.position)
-					ForwadsButtonPlane.rotation.copy(camera.rotation)
-
-					if (rotations[lookingAtPicture] == 0) {
-						ForwadsButtonPlane.position.z -= 70
-						ForwadsButtonPlane.position.x += 50
-					} else if (rotations[lookingAtPicture] == 1) {
-							ForwadsButtonPlane.position.z += 50
-							ForwadsButtonPlane.position.x += 50
-					}
-
-
-					BackwadsButtonPlane.position.copy(camera.position)
-					BackwadsButtonPlane.rotation.copy(camera.rotation)
-
-					if (rotations[lookingAtPicture] == 0) {
-						BackwadsButtonPlane.position.z -= 70
-						BackwadsButtonPlane.position.x -= 50
-					} else if (rotations[lookingAtPicture] == 1) {
-							BackwadsButtonPlane.position.z -= 50
-							BackwadsButtonPlane.position.x += 50
-					}
-					//lerpingVector.lerpVectors(ForwadsButtonPlane.lerpStartPosition, ForwadsButtonPlane.lerpTo, lerpWith)
-					//ForwadsButtonPlane.position.copy(lerpingVector)
-				}
-			}
-
 			function animate() {
 
 				requestAnimationFrame( animate );
 
 				//controls.update();
-				lerpCameraUpdate()
+				//lerpCameraUpdate()
 
 				renderer.render( scene, camera );
 

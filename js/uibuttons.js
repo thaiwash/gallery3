@@ -48,6 +48,7 @@ function createBackwardsImage(loader) {
         plane.position.x = -40
         plane.position.y = 0
         plane.name = "BackwardsImage"
+        window.BackwadsButtonPlane = plane
         return plane
 }
 
